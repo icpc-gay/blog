@@ -1,69 +1,89 @@
 # My Blog
 
-个人博客静态站点，基于 Lumino 模板（Bootstrap + jQuery）。
+这是一个基于静态文件、Markdown 和 Cloudflare Pages 的个人博客。网站不提供登录、注册、上传、数据库或后台管理功能；GitHub Pull Request 是唯一的投稿和审核入口。
 
-## 页面结构
+## 项目结构
 
-- `index.html` — 首页（Home）：Hero 与关于我
-- `blog.html` — 博客（Blog）：文章列表 + 文章详情页（双模式）
-- Projects — 导航栏直接跳转 GitHub 主页(https://github.com/vlouboos)
+```text
+articles/                 Markdown 文章及文章资源
+  YYYY-MM-DD-slug/
+    index.md              文章正文和 Front Matter
+data/articles.json        构建时自动生成的文章索引
+scripts/build-blog.js     扫描文章并生成索引
+blog.html                 文章列表和文章详情页
+index.html                首页
+js/                       前端脚本、Markdown 解析器和内容清理库
+css/                      页面样式
+img/                      网站图片资源
+font-awesome-4.5.0/       Font Awesome 静态资源
+```
 
-站点为纯静态页面：所有用户均为访客，仅可浏览内容；不提供登录、注册或文章上传功能。
+`data/articles.json` 只保存索引元数据，不保存文章正文，也不应手动编辑。
 
-## 如何添加文章
+## 文章格式
 
-1. **创建文章目录**  
-   在 `articles/` 下创建新目录，格式为 `YYYY-MM-DD-slug`，例如：  
-   `articles/2026-09-20-learning-frontend/`
+每篇文章必须位于一个 `YYYY-MM-DD-slug` 目录中，并包含 `index.md`：
 
-2. **复制模板**  
-   复制 `templates/article.md` 到新目录，重命名为 `index.md`
+```yaml
+---
+title: 文章标题
+author: 作者名称
+date: 2026-09-19
+description: 文章摘要
+cover:
+tags:
+  - Tag
+draft: false
+---
 
-3. **编辑 Front Matter**  
-   在 `index.md` 顶部填写文章元数据：
-   ```yaml
-   ---
-   title: 文章标题
-   date: 2026-09-20
-   description: 文章摘要
-   cover: cover.webp
-   tags:
-     - Web
-     - 前端
-   draft: false
-   ---
-   ```
+# 文章标题
 
-4. **编写正文**  
-   使用 Markdown 编写文章正文，支持标题、段落、粗体、斜体、链接、图片、引用、列表、代码块、表格等。
+这里是 Markdown 正文。
+```
 
-5. **更新索引**  
-   编辑 `data/articles.json`，添加新文章的元数据：
-   ```json
-   {
-     "id": "2026-09-20-learning-frontend",
-     "title": "学习前端开发",
-     "date": "2026-09-20",
-     "description": "分享前端学习心得",
-     "cover": "articles/2026-09-20-learning-frontend/cover.webp",
-     "tags": ["Web", "前端"],
-     "draft": false
-   }
-   ```
+`title`、`author` 和 `date` 是必填字段；`description`、`cover` 和 `tags` 是可选字段；`draft` 可选，默认值为 `false`。缺少必填字段或字段格式错误时，构建会失败。文章目录中的图片等资源可用相对路径引用，例如 `![截图](image.webp)`。
 
-6. **提交代码**  
-   ```bash
-   git add .
-   git commit -m "新增文章：学习前端开发"
-   git push
-   ```
+## 投稿与审核
 
-7. **发布完成**  
-   文章将自动出现在博客列表，可通过 `blog.html?post=2026-09-20-learning-frontend` 访问。
+所有文章投稿均通过 GitHub Pull Request 完成：
 
-### 注意事项
+1. Fork 本仓库。
+2. 创建 `articles/YYYY-MM-DD-slug/`。
+3. 创建 `index.md` 并填写 Front Matter。
+4. 使用 Markdown 编写文章。
+5. 添加文章需要的图片等资源。
+6. Commit。
+7. 创建 Pull Request。
+8. 等待维护者审核。
 
-- `draft: true` 的文章不会在博客列表显示（本地开发环境可预览）
-- 图片等资源放在文章目录内，Markdown 中使用相对路径引用
-- 文章按日期从新到旧排序
-- 无需重启服务器，静态页面自动更新
+```text
+Pull Request = 投稿 / 审核
+Merge PR     = 通过审核并发布
+Close PR     = 拒绝投稿
+```
+
+投稿者不应手动修改 `data/articles.json`，也不应创建文章 HTML。Markdown 是文章唯一来源。
+
+## 发布流程
+
+```text
+Markdown
+    ↓
+scripts/build-blog.js
+    ↓
+data/articles.json
+    ↓
+Cloudflare Pages
+```
+
+合并到主分支后，Cloudflare Pages 执行 `npm run build`，生成索引并部署静态文件。访问 `blog.html` 查看文章列表，访问 `blog.html?post=文章目录名` 查看文章详情。普通访客看不到 `draft: true` 的文章。
+
+## 本地构建
+
+项目的 `package.json` 只定义了现有构建命令：
+
+```bash
+npm run build
+```
+
+该命令扫描 `articles/**/index.md`、校验 Front Matter 并生成 `data/articles.json`。项目没有后端运行时或独立开发服务器。
