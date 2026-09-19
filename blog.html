@@ -25,34 +25,74 @@
     </div>
 
     <main>
-        <header class="blog-hero">
-            <div class="tm-container blog-hero-inner">
-                <p class="blog-kicker">NOTES / LOG</p>
-                <h1>博客</h1>
-                <p>把正在发生的事，写成以后还能重读的文字。</p>
-            </div>
-        </header>
+        <!-- 文章列表视图（默认） -->
+        <div id="blog-list-view">
+            <header class="blog-hero">
+                <div class="tm-container blog-hero-inner">
+                    <p class="blog-kicker">NOTES / LOG</p>
+                    <h1>博客</h1>
+                    <p>把正在发生的事，写成以后还能重读的文字。</p>
+                </div>
+            </header>
 
-        <section class="blog-list-section" aria-labelledby="blog-list-title">
-            <div class="tm-container">
-                <div class="blog-list-heading">
-                    <div><p class="blog-kicker">ARCHIVE</p><h2 id="blog-list-title">最新记录</h2></div>
-                    <span id="blog-count" class="blog-count" aria-live="polite">正在读取</span>
+            <section class="blog-list-section" aria-labelledby="blog-list-title">
+                <div class="tm-container">
+                    <div class="blog-list-heading">
+                        <div><p class="blog-kicker">ARCHIVE</p><h2 id="blog-list-title">最新记录</h2></div>
+                        <span id="blog-count" class="blog-count" aria-live="polite">正在读取</span>
+                    </div>
+                    <div id="blog-list" class="blog-list" aria-live="polite"></div>
+                    <div id="blog-empty" class="blog-empty" hidden>
+                        <span class="blog-empty-mark">—</span>
+                        <h2>还没有文章</h2>
+                        <p>把第一篇博客放进 <code>articles/2026-09-19-title/index.md</code>，它会自动出现在这里。</p>
+                    </div>
                 </div>
-                <div id="blog-list" class="blog-list" aria-live="polite"></div>
-                <div id="blog-empty" class="blog-empty" hidden>
-                    <span class="blog-empty-mark">—</span>
-                    <h2>还没有文章</h2>
-                    <p>把第一篇博客放进 <code>blogs/1/index.html</code>，它会自动出现在这里。</p>
+            </section>
+        </div>
+
+        <!-- 文章详情视图（隐藏） -->
+        <div id="blog-article-view" style="display: none;">
+            <div class="tm-container">
+                <!-- 返回按钮 -->
+                <div class="blog-article-back">
+                    <a href="blog.html" class="btn btn-default tm-normal-btn tm-blue-btn">
+                        <i class="fa fa-arrow-left"></i> 返回博客列表
+                    </a>
+                </div>
+
+                <!-- 文章标题 -->
+                <div class="blog-article-header">
+                    <h1 id="article-title" class="blog-article-title"></h1>
+                    <p id="article-meta" class="blog-article-meta"></p>
+                </div>
+
+                <!-- 文章封面 -->
+                <div id="article-cover-container" class="blog-article-cover" style="display: none;">
+                    <img id="article-cover" src="" alt="" class="img-fluid">
+                </div>
+
+                <!-- 文章正文 -->
+                <div id="article-body" class="article-body">
+                    <!-- Markdown 内容将在这里渲染 -->
+                </div>
+
+                <!-- 文章不存在提示 -->
+                <div id="article-missing" class="blog-article-missing" style="display: none;">
+                    <h2>文章不存在</h2>
+                    <p>该文章可能已被删除、尚未发布，或链接有误。</p>
+                    <a href="blog.html" class="btn btn-default tm-normal-btn tm-blue-btn">返回博客列表</a>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 
-    <footer class="blog-footer"><p>Copyright &copy; 2025 My Blog</p></footer>
+    <footer class="blog-footer"><p>&copy; vlouboos. All rights reserved.</p></footer>
     <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="https://www.atlasestateagents.co.uk/javascript/tether.min.js"></script>
+    <script src="js/vendor/tether.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/vendor/marked.min.js"></script>
+    <script src="js/vendor/purify.min.js"></script>
     <script src="js/blog-index.js"></script>
     <script>$(function(){ $('#tmNavbar a').click(function(){ $('#tmNavbar').collapse('hide'); }); });</script>
 </body>
