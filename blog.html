@@ -11,81 +11,87 @@
     <link rel="stylesheet" href="css/templatemo-style.css">
 </head>
 <body id="top" class="page-2 blog-page">
-    <div class="tm-navbar-container tm-navbar-container-dark">
-        <nav class="navbar navbar-full navbar-fixed-top" aria-label="主导航">
-            <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar" aria-label="打开导航">&#9776;</button>
-            <div class="collapse navbar-toggleable-sm" id="tmNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item"><a href="index.html" class="nav-link external">Home</a></li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link external active" aria-current="page">Blog</a></li>
-                    <li class="nav-item"><a href="https://github.com/vlouboos" class="nav-link external">Projects</a></li>
-                </ul>
+<div class="tm-navbar-container tm-navbar-container-dark">
+    <nav class="navbar navbar-full navbar-fixed-top" aria-label="主导航">
+        <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#tmNavbar"
+                aria-label="打开导航">&#9776;
+        </button>
+        <div class="collapse navbar-toggleable-sm" id="tmNavbar">
+            <ul class="nav navbar-nav">
+                <li class="nav-item"><a href="index.html" class="nav-link external">Home</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link external active" aria-current="page">Blog</a>
+                </li>
+                <li class="nav-item"><a href="https://github.com/vlouboos" class="nav-link external">Projects</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<main>
+    <!-- 文章列表视图（默认） -->
+    <div id="blog-list-view">
+        <header class="blog-hero">
+            <div class="tm-container blog-hero-inner">
+                <p class="blog-kicker">NOTES / LOG</p>
+                <h1>博客</h1>
+                <p>把正在发生的事，写成以后还能重读的文字。</p>
             </div>
-        </nav>
+        </header>
+
+        <section class="blog-list-section" aria-labelledby="blog-list-title">
+            <div class="tm-container">
+                <div class="blog-list-heading">
+                    <div><p class="blog-kicker">ARCHIVE</p>
+                        <h2 id="blog-list-title">最新记录</h2></div>
+                    <span id="blog-count" class="blog-count" aria-live="polite">正在读取</span>
+                </div>
+                <div id="blog-list" class="blog-list" aria-live="polite"></div>
+                <div id="blog-empty" class="blog-empty" hidden>
+                    <span class="blog-empty-mark">—</span>
+                    <h2>还没有文章</h2>
+                    <p>把第一篇博客放进 <code>articles/date-title/index.md</code>，它会自动出现在这里。</p>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <main>
-        <!-- 文章列表视图（默认） -->
-        <div id="blog-list-view">
-            <header class="blog-hero">
-                <div class="tm-container blog-hero-inner">
-                    <p class="blog-kicker">NOTES / LOG</p>
-                    <h1>博客</h1>
-                    <p>把正在发生的事，写成以后还能重读的文字。</p>
-                </div>
-            </header>
+    <!-- 文章详情视图（隐藏） -->
+    <div id="blog-article-view" style="display: none;">
+        <div class="tm-container">
+            <!-- 返回按钮 -->
+            <div class="blog-article-back">
+                <a href="blog.html" class="btn btn-default tm-normal-btn tm-blue-btn">
+                    <i class="fa fa-arrow-left"></i> 返回博客列表
+                </a>
+            </div>
 
-            <section class="blog-list-section" aria-labelledby="blog-list-title">
-                <div class="tm-container">
-                    <div class="blog-list-heading">
-                        <div><p class="blog-kicker">ARCHIVE</p><h2 id="blog-list-title">最新记录</h2></div>
-                        <span id="blog-count" class="blog-count" aria-live="polite">正在读取</span>
-                    </div>
-                    <div id="blog-list" class="blog-list" aria-live="polite"></div>
-                    <div id="blog-empty" class="blog-empty" hidden>
-                        <span class="blog-empty-mark">—</span>
-                        <h2>还没有文章</h2>
-                        <p>把第一篇博客放进 <code>articles/2026-09-19-title/index.md</code>，它会自动出现在这里。</p>
-                    </div>
-                </div>
-            </section>
-        </div>
+            <!-- 文章标题 -->
+            <div class="blog-article-header">
+                <h1 id="article-title" class="blog-article-title"></h1>
+                <p id="article-meta" class="blog-article-meta"></p>
+                <p id="article-description" class="blog-article-description"></p>
+                <p id="article-author" class="blog-article-author"></p>
+            </div>
 
-        <!-- 文章详情视图（隐藏） -->
-        <div id="blog-article-view" style="display: none;">
-            <div class="tm-container">
-                <!-- 返回按钮 -->
-                <div class="blog-article-back">
-                    <a href="blog.html" class="btn btn-default tm-normal-btn tm-blue-btn">
-                        <i class="fa fa-arrow-left"></i> 返回博客列表
-                    </a>
-                </div>
+            <!-- 文章封面 -->
+            <div id="article-cover-container" class="blog-article-cover" style="display: none;">
+                <img id="article-cover" src="" alt="" class="img-fluid">
+            </div>
 
-                <!-- 文章标题 -->
-                <div class="blog-article-header">
-                    <h1 id="article-title" class="blog-article-title"></h1>
-                    <p id="article-meta" class="blog-article-meta"></p>
-                </div>
+            <!-- 文章正文 -->
+            <div id="article-body" class="article-body">
+                <!-- Markdown 内容将在这里渲染 -->
+            </div>
 
-                <!-- 文章封面 -->
-                <div id="article-cover-container" class="blog-article-cover" style="display: none;">
-                    <img id="article-cover" src="" alt="" class="img-fluid">
-                </div>
-
-                <!-- 文章正文 -->
-                <div id="article-body" class="article-body">
-                    <!-- Markdown 内容将在这里渲染 -->
-                </div>
-
-                <!-- 文章不存在提示 -->
-                <div id="article-missing" class="blog-article-missing" style="display: none;">
-                    <h2>文章不存在</h2>
-                    <p>该文章可能已被删除、尚未发布，或链接有误。</p>
-                    <a href="blog.html" class="btn btn-default tm-normal-btn tm-blue-btn">返回博客列表</a>
-                </div>
+            <!-- 文章不存在提示 -->
+            <div id="article-missing" class="blog-article-missing" style="display: none;">
+                <h2>文章不存在</h2>
+                <p>该文章可能已被删除、尚未发布，或链接有误。</p>
+                <a href="blog.html" class="btn btn-default tm-normal-btn tm-blue-btn">返回博客列表</a>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
     <footer class="blog-footer"><p>&copy; vlouboos. All rights reserved.</p></footer>
     <script src="js/jquery-1.11.3.min.js"></script>
